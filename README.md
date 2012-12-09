@@ -26,6 +26,6 @@ Append the following lines to your emacs startup file:
 
 ## License
 
-Copyright © 2012 Yves Zoundi
+Copyright © 2012 Rimero Solutions
 
 Licensed under the GPL V3. (http://www.gnu.org/licenses/gpl-3.0.txt)

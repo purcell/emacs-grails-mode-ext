@@ -1,6 +1,6 @@
 ;; ================================
 ;; Extensions for grails-mode
-;; Author : Yves Zoundi
+;; Author : Rimero Solutions
 ;; Created : 08-Dec-2012
 ;; 
 ;; License: GNU GPL v3 (http://www.gnu.org/licenses/gpl-3.0.txt)
