@@ -24,6 +24,22 @@ Append the following lines to your emacs startup file:
 (require 'emacs-grails-mode-ext)
 ```
 
+Additional setup for file associations (requires [groovy-mode](https://github.com/timvisher/emacs-groovy-mode-mirror)) :
+
+```lisp
+(autoload 'groovy-mode "groovy-mode" "Mode for editing Groovy source files")
+(autoload 'nxml-mode "nxml-mode" "Mode for editing GSP pages")
+
+(add-to-list 'auto-mode-alist '("\.gsp$" . nxml-mode)) 
+(add-to-list 'auto-mode-alist '("\.groovy$" . groovy-mode)) 
+(add-to-list 'auto-mode-alist '("\.gradle$" . groovy-mode)) 
+```
+
+The Grails mode version available at [groovy-mode](https://github.com/timvisher/emacs-groovy-mode-mirror) is old, I'm using kurtharriger's version.
+You only need the Groovy mode related files.
+
+You may want to filter the output of Grails command in the shell like described [here](http://www.redtoad.ca/ataylor/2011/09/grails-2-0-and-emacs-shell-mode/).
+
 ## License
 
 Copyright © 2012 Rimero Solutions
