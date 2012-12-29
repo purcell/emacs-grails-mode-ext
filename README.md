@@ -35,7 +35,7 @@ Additional setup for file associations (requires [groovy-mode](https://github.co
 (add-to-list 'auto-mode-alist '("\.gradle$" . groovy-mode)) 
 ```
 
-The Grails mode version available at [https://github.com/timvisher/emacs-groovy-mode-mirror](https://github.com/timvisher/emacs-groovy-mode-mirror) is old, I'm using kurtharriger's version.
+The Grails mode version available at [https://github.com/timvisher/emacs-groovy-mode-mirror](https://github.com/timvisher/emacs-groovy-mode-mirror) is old, I'm using [kurtharriger's](https://github.com/kurtharriger/emacs-grails-mode) version.
 You only need the Groovy mode related files.
 
 You may want to filter the output of Grails commands in the shell as described [here](http://www.redtoad.ca/ataylor/2011/09/grails-2-0-and-emacs-shell-mode/).
