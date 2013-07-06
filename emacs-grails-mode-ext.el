@@ -16,6 +16,15 @@
 
 (grails-mode 1)
 
+(if (eq system-type 'windows-nt)
+    (defvar grails-executable-suffix ".bat")
+  (defvar grails-executable-suffix ""))
+
+(defcustom use-grails-wrapper-when-possible t
+  "Use the Grails wrapper whenever available"
+  :type 'boolean
+  :group 'grails)
+
 (defcustom grails-executable
   "grails"
   "Path to Grails executable.
@@ -49,13 +58,21 @@
   (project-ensure-current)
 
   (let ((default-directory (expand-file-name (project-default-directory (project-current)))))
+    (setq grails-commandLine grails-executable)
+
     ;; runs the grails command from the project directory
-    (async-shell-command (concat grails-executable " " str) "*Grails*")))
+    (when use-grails-wrapper-when-possible
+      (when (file-exists-p (concat (project-default-directory (project-current)) "grailsw"))
+        (setq grails-commandLine (concat (project-default-directory (project-current)) "grailsw" grails-executable-suffix))))
+    (async-shell-command (concat grails-commandLine " " str) "*Grails*")))
+
+
 
 (defun grails/read-param-and-run (input-hint grails-command)
   "Read an input parameter and invoke a given Grails command"
 
   (let (grails-command-argument)
+
     (setq grails-command-argument (read-from-minibuffer input-hint))
     (grails/command (concat grails-command " " grails-command-argument))))
 
