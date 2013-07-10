@@ -7,7 +7,7 @@ Simple contribution to the existing Emacs [grails-mode](https://github.com/kurth
 * You can browse documentation (wiki, guide, apidocs).
 * Custom JVM options to pass to the Grails command are supported at a global level.
 * You can use the [Grails wrapper](http://grails.org/doc/2.1.0/ref/Command%20Line/wrapper.html) by default whenever available for a project.
-* Customization group called __grails__ that is accessible via /*M-x customize-group*/.
+* Customization group called __grails__ that is accessible via `M-x customize-group`.
 * Menubar contributions for the original Emacs Grails mode.
 
 Note: Not all commands are added to the menubar. 
