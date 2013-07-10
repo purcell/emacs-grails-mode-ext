@@ -5,24 +5,31 @@
 ;;
 ;; License: GNU GPL v3 (http://www.gnu.org/licenses/gpl-3.0.txt)
 ;; Sypnosis:
-;;    - You can run pre-defined or arbitrary Grails commans for a project
-;;    - You can browse documentation (wiki, guide, apidocs)
-;;    - Menubar contributions in Grails mode
-;;
+;;    - You can run pre-defined or arbitrary Grails commans for a project.
+;;    - You can browse documentation (wiki, guide, apidocs).
+;;    - Menubar contributions in Grails mode.
+;;    - Grails wrapper support for the current project.
 ;;
 ;; ================================
 (require 'project-mode)
 (require 'grails-mode)
 
-(grails-mode 1)
+(grails-mode t)
 
-(if (eq system-type 'windows-nt)
-    (defvar grails-executable-suffix ".bat")
-  (defvar grails-executable-suffix ""))
+(defvar grails-executable-suffix "")
+
+(when (eq system-type 'windows-nt)
+    (setq grails-executable-suffix ".bat"))
 
 (defcustom use-grails-wrapper-when-possible t
   "Use the Grails wrapper whenever available"
   :type 'boolean
+  :group 'grails)
+
+(defcustom grails-jvm-opts
+  ""
+  "JVM options to pass to Grails"
+  :type '(string)
   :group 'grails)
 
 (defcustom grails-executable
@@ -62,10 +69,9 @@
 
     ;; runs the grails command from the project directory
     (when use-grails-wrapper-when-possible
-      (when (file-exists-p (concat (project-default-directory (project-current)) "grailsw"))
-        (setq grails-commandLine (concat (project-default-directory (project-current)) "grailsw" grails-executable-suffix))))
-    (async-shell-command (concat grails-commandLine " " str) "*Grails*")))
-
+      (when (file-exists-p (concat default-directory "grailsw"))
+        (setq grails-commandLine (concat default-directory "grailsw" grails-executable-suffix))))
+    (async-shell-command (concat grails-commandLine " " grails-jvm-opts " " str) "*Grails*")))
 
 
 (defun grails/read-param-and-run (input-hint grails-command)
@@ -101,10 +107,7 @@
   (let ((default-directory (expand-file-name grails-project-parent-directory)))
     (shell-command (concat grails-executable " " (concat  " " grails-new-app-command " " grails-project-name)) "*Grails*")
     (project-new grails-project-name  (concat default-directory grails-project-name))
-    (project-refresh)
-    (project-save)
-    (project-load-and-select grails-project-name)))
-
+    (project-save)))
 
 (defun grails/icommand ()
   "Enter a Grails command (Interactive)"
@@ -142,19 +145,7 @@
   "List Grails plugins"
 
   (interactive)
-  (grails/command "list-plugin"))
-
-(defun grails/install-plugin ()
-  "Install a Grails plugin"
-
-  (interactive)
-  (grails/read-param-and-run "name optionalversion:" "install-plugin"))
-
-(defun grails/uninstall-plugin ()
-  "Uninstall a Grails plugin"
-
-  (interactive)
-  (grails/read-param-and-run "Plugin Name:" "uninstall-plugin"))
+  (grails/command "list-plugins -installed"))
 
 (defun grails/package-plugin ()
   "Package a Grails plugin"
@@ -217,9 +208,9 @@
   (global-set-key   (kbd "C-c ;cd") 'grails/create-domain)
   (global-set-key   (kbd "C-c ;cc") 'grails/create-controller)
   (global-set-key   (kbd "C-c ;cs") 'grails/create-service)
-  (global-set-key   (kbd "C-c ;pl") 'grails/list-plugin)
-  (global-set-key   (kbd "C-c ;pp") 'grails/package-plugin)
-  (global-set-key   (kbd "C-c ;pu") 'grails/uninstall-plugin))
+  (global-set-key   (kbd "C-c ;ct") 'grails/create-taglib)
+  (global-set-key   (kbd "C-c ;lp") 'grails/list-plugin)
+  (global-set-key   (kbd "C-c ;pp") 'grails/package-plugin))
 
 (eval-after-load "emacs-grails-mode-ext"
   '(progn (grails/contribute-keys) ))

@@ -1,14 +1,17 @@
 # Emacs Grails Mode Extensions
 
-Simple(one-time) contribution to the existing Emacs [grails-mode](https://github.com/kurtharriger/emacs-grails-mode).
+Simple contribution to the existing Emacs [grails-mode](https://github.com/kurtharriger/emacs-grails-mode).
 
 ## Features
-* You can run pre-defined or arbitrary Grails commands for a project
-* You can browse documentation (wiki, guide, apidocs)
-* Menubar contributions in Grails mode
+* You can run pre-defined or arbitrary Grails commands for a project with easy shortcuts.
+* You can browse documentation (wiki, guide, apidocs).
+* Custom JVM options to pass to the Grails command are supported at a global level.
+* You can use the [Grails wrapper](http://grails.org/doc/2.1.0/ref/Command%20Line/wrapper.html) by default whenever available for a project.
+* Customization group called __grails__ that is accessible via /*M-x customize-group*/.
+* Menubar contributions for the original Emacs Grails mode.
 
 Note: Not all commands are added to the menubar. 
-All available functions start with *grails/* (grails followed by slash).
+All available functions start with *grails/* (grails followed by a slash).
 
 ## Dependencies
 
@@ -42,6 +45,6 @@ You may want to filter the output of Grails commands in the shell as described [
 
 ## License
 
-Copyright © 2012 Rimero Solutions
+Copyright © 2012-2013 Rimero Solutions
 
 Licensed under the GPL V3. (http://www.gnu.org/licenses/gpl-3.0.txt)
