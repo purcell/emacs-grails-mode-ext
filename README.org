@@ -1,0 +1,30 @@
+#+TITLE: Emacs Gradle Project Mode
+
+Simple contribution to [[https://github.com/kurtharriger/emacs-grails-mode][grails-mode]].
+
+* Features
+
+- You can run pre-defined or arbitrary Gradle commands for a project with easy shortcuts.
+- You can browse documentation (main documentation page, guide, apidocs).
+- Custom JVM options to pass to the Gradle command are supported at a global level.
+- Custom command line options to pass to Gradle by default
+- You can use the Gradle wrapper by default whenever available for a project.
+- Customization group called *gradle* that is accessible via =M-x customize-group=.
+- Menubar contributions for common commands
+
+* Dependencies and installation
+The only dependency is grails-mode and you can grab the mode [[https://github.com/timvisher/emacs-groovy-mode-mirror][here]] with associated groovy modes.
+
+If you're using the package system, install *grails-mode* from the list of packages with =M-x list-packages=.
+
+* Configuration
+
+Put the =emacs-grails-project-mode.el= file in the folder of your choice and add it to the *load-path*.
+
+: ;; Assuming that emacs-grails-project-mode.el is in ~/.emacs.d/vendor
+: (setq load-path (cons (expand-file-name "~/.emacs.d/vendor") load-path))
+: (require 'emacs-grails-project-mode)
+
+You can load automatically both project-mode and emacs-grails-project-mode with the following lines:
+: (project-mode t)
+: (emacs-grails-minor-mode t)
