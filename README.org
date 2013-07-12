@@ -1,14 +1,14 @@
-#+TITLE: Emacs Gradle Project Mode
+#+TITLE: Emacs Grails Mode Extensions
 
 Simple contribution to [[https://github.com/kurtharriger/emacs-grails-mode][grails-mode]].
 
 * Features
 
-- You can run pre-defined or arbitrary Gradle commands for a project with easy shortcuts.
+- You can run pre-defined or arbitrary Grails commands for a project with easy shortcuts.
 - You can browse documentation (main documentation page, guide, apidocs).
-- Custom JVM options to pass to the Gradle command are supported at a global level.
-- Custom command line options to pass to Gradle by default
-- You can use the Gradle wrapper by default whenever available for a project.
+- Custom JVM options to pass to the Grails command are supported at a global level.
+- Custom command line options to pass to Grails by default
+- You can use the Grails wrapper by default whenever available for a project.
 - Customization group called *gradle* that is accessible via =M-x customize-group=.
 - Menubar contributions for common commands
 
