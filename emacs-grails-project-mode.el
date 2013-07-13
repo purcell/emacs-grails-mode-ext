@@ -83,30 +83,30 @@
         (when (file-exists-p (concat default-directory "grailsw" grails-executable-suffix))
           (setq grails-commandLine (concat default-directory "grailsw" grails-executable-suffix))))
 
-      (async-shell-command (concat grails-commandLine " " str) "*Grails*"))))
+      (async-shell-command (concat grails-commandLine " " grails-jvm-opts " " str) "*Grails*"))))
 
 
 (defun grails/read-param-and-run (input-hint grails-command)
   "Read an input parameter and invoke a given Grails command"
 
-  (let (grails-command-argument (read-from-minibuffer input-hint))
-    (grails/command (concat grails-command " " grails-command-argument))))
+  (setq grails-command-argument (read-from-minibuffer input-hint))
+  (grails/command (concat grails-command " " grails-command-argument)))
 
 (defun grails/new-app ()
   "Create a new Grails project"
 
   (interactive)
-  (let (grails-project-parent-directory (read-from-minibuffer "Project parent directory: "))
-    (let (grails-project-name (read-from-minibuffer "Project name: "))
-      (grails/new-project grails-project-name grails-project-parent-directory "create-app"))))
+  (setq grails-project-parent-directory (read-from-minibuffer "Project parent directory: "))
+  (setq grails-project-name (read-from-minibuffer "Project name: "))
+  (grails/new-project grails-project-name grails-project-parent-directory "create-app"))
 
 (defun grails/new-plugin ()
   "Create a new Grails project"
 
   (interactive)
-  (let (grails-project-parent-directory (read-from-minibuffer "Project parent directory: "))
-    (let (grails-project-name (read-from-minibuffer "Project name: "))
-      (grails/new-project grails-project-name grails-project-parent-directory "create-plugin"))))
+  (setq grails-project-parent-directory (read-from-minibuffer "Project parent directory: "))
+  (setq grails-project-name (read-from-minibuffer "Project name: "))
+  (grails/new-project grails-project-name grails-project-parent-directory "create-plugin"))
 
 (defun grails/new-project (grails-project-name grails-project-parent-directory grails-new-app-command)
 

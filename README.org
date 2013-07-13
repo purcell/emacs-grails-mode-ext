@@ -25,6 +25,9 @@ Put the =emacs-grails-project-mode.el= file in the folder of your choice and add
 : (setq load-path (cons (expand-file-name "~/.emacs.d/vendor") load-path))
 : (require 'emacs-grails-project-mode)
 
+** Load the minor-mode automatically
 You can load automatically both project-mode and emacs-grails-project-mode with the following lines:
-: (project-mode t)
+
 : (emacs-grails-minor-mode t)
+
+You can toggle =emacs-grails-minor-mode= using =M-x emacs-grails-minor-mode=.
