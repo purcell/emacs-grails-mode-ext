@@ -34,8 +34,10 @@
 
 (add-hook 'comint-output-filter-functions 'grails-comint-magic)
 
-(defvar grails-executable-suffix
-  (if (eq system-type 'windows-nt) ".bat" ""))
+(defvar grails-executable-suffix "")
+
+(when (eq system-type 'windows-nt)
+  (setq grails-executable-suffix ".bat"))
 
 (defcustom use-grails-wrapper-when-possible t
   "Use the Grails wrapper whenever available"
@@ -76,12 +78,12 @@
   (let ((default-directory (expand-file-name (project-default-directory (project-current)))))
     (let (grails-commandLine grails-executable)
 
-    ;; runs the grails command from the project directory
-    (when use-grails-wrapper-when-possible
-      (when (file-exists-p (concat default-directory "grailsw" grails-executable-suffix))
-        (setq grails-commandLine (concat default-directory "grailsw" grails-executable-suffix))))
+      ;; runs the grails command from the project directory
+      (when use-grails-wrapper-when-possible
+        (when (file-exists-p (concat default-directory "grailsw" grails-executable-suffix))
+          (setq grails-commandLine (concat default-directory "grailsw" grails-executable-suffix))))
 
-    (async-shell-command (concat grails-commandLine " " str) "*Grails*"))))
+      (async-shell-command (concat grails-commandLine " " str) "*Grails*"))))
 
 
 (defun grails/read-param-and-run (input-hint grails-command)
@@ -101,13 +103,13 @@
 (defun grails/new-plugin ()
   "Create a new Grails project"
 
-  (interactive)  
+  (interactive)
   (let (grails-project-parent-directory (read-from-minibuffer "Project parent directory: "))
     (let (grails-project-name (read-from-minibuffer "Project name: "))
       (grails/new-project grails-project-name grails-project-parent-directory "create-plugin"))))
 
 (defun grails/new-project (grails-project-name grails-project-parent-directory grails-new-app-command)
-  
+
   (let ((default-directory (expand-file-name grails-project-parent-directory)))
     (shell-command (concat grails-executable " " (concat  " " grails-new-app-command " " grails-project-name)) "*Grails*")
     (project-new grails-project-name  (concat default-directory grails-project-name))
@@ -116,37 +118,37 @@
 (defun grails/icommand ()
   "Enter a Grails command (Interactive)"
 
-  (interactive)  
+  (interactive)
   (grails/read-param-and-run "Goal:" ""))
 
 (defun grails/create-domain ()
   "Create a Grails Domain Class"
-  
-  (interactive)  
+
+  (interactive)
   (grails/read-param-and-run "Domain class:" "create-domain-class"))
 
 (defun grails/create-controller ()
   "Create a Grails Controller"
 
-  (interactive)  
+  (interactive)
   (grails/read-param-and-run "Controller Domain class:" "create-controller"))
 
 (defun grails/create-service ()
   "Create a Grails Service"
 
-  (interactive)  
+  (interactive)
   (grails/read-param-and-run "Service Domain class:" "create-service"))
 
 (defun grails/create-taglib ()
   "Create a Grails Taglib"
 
-  (interactive)  
+  (interactive)
   (grails/read-param-and-run "TagLib Name:" "create-tag-lib"))
 
 (defun grails/list-installed-plugins ()
   "List installed plugins"
 
-  (interactive)  
+  (interactive)
   (grails/command "list-plugins -installed"))
 
 (defun grails/compile ()
@@ -164,7 +166,7 @@
 (defun grails/browse-wiki-docs ()
   "Browse the API Documentation"
 
-  (interactive)  
+  (interactive)
   (if (boundp 'grails-url-wikidocs)
       (browse-url grails-url-wikidocs)
     (message "No Grails Wiki docs URL set. Customize the 'grails' group")))
@@ -172,7 +174,7 @@
 (defun grails/browse-api-docs ()
   "Browse the API Documentation"
 
-  (interactive)  
+  (interactive)
   (if (boundp 'grails-url-apidocs)
       (browse-url grails-url-apidocs)
     (message "No Grails API URL set. Customize the 'grails' group")))
@@ -181,12 +183,12 @@
 (defun grails/browse-latest-guide ()
   "Browse the official Grails Guide"
 
-  (interactive)  
+  (interactive)
   (if (boundp 'grails-url-guide)
       (browse-url grails-url-guide)
     (message "No Grails URL Guide set. Customize the 'grails' group")))
 
-(defvar emacs-grails-minor-mode-map  
+(defvar emacs-grails-minor-mode-map
   (let ((map (make-sparse-keymap)))
     ;; TODO erase some of the keybindings in grails-mode.el
     ;; instead of modifying directly the source code
@@ -212,7 +214,7 @@
 
 ;;;###autoload
 (define-minor-mode emacs-grails-minor-mode
-  "Emacs Grails Project Mode Extensions"  
+  "Emacs Grails Project Mode Extensions"
   :lighter " GrailsX"
   :keymap 'emacs-grails-minor-mode-map
   :group  'grails
