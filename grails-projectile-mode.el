@@ -12,6 +12,12 @@
 ;; ================================
 (require 'projectile)
 
+(defun ers-get-string-from-file (filePath)                                                                                                                             
+  "Return filePath's file content."                                                                                                                                    
+  (with-temp-buffer                                                                                                                                                    
+    (insert-file-contents filePath)                                                                                                                                    
+    (buffer-string)) )  
+
 (defvar grails-executable-suffix
   (if (eq system-type 'windows-nt)
       ".bat"
