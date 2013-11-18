@@ -125,7 +125,7 @@
         (setq grails-cmd-line (concat default-directory grails-wrapper-filename grails-executable-suffix))))
 
     (when (file-exists-p (concat default-directory grails-projectile-filename))
-      (setq grails-args (grails/read-grails-projectile-file (concat default-directory grails-projectile-filename))))
+      (setq grails-args (grails/read-grails-options-projectile-file (concat default-directory grails-projectile-filename))))
 
     (let (( grails-command-line (concat grails-cmd-line " " grails-output-opts " " grails-args " " str)))
       ;; runs the grails command from the project directory
