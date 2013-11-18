@@ -1,33 +1,45 @@
 #+TITLE: Emacs Grails Mode Extensions
 
-Simple contribution to [[https://github.com/kurtharriger/emacs-grails-mode][grails-mode]].
+This project provides basic [[http://grails.org][Grails]] support with Emacs.
+There are 2 packages:
+- Grails support using [[https://github.com/bbatsov/projectile][Projectile]] as project management system.
+- Grails support on top of the existing [[https://github.com/kurtharriger/emacs-grails-mode][grails-mode]], which uses [[https://code.google.com/p/emacs-project-mode/][project-mode]].
+
+Projectile support is newer and recommended.
 
 * Features
 
 - You can run pre-defined or arbitrary Grails commands for a project with easy shortcuts.
 - You can browse documentation (main documentation page, guide, apidocs).
 - Custom JVM options to pass to the Grails command are supported at a global level.
-- Custom command line options to pass to Grails by default
+- Custom command line options to pass to Grails by default.
 - You can use the Grails wrapper by default whenever available for a project.
-- Customization group called *gradle* that is accessible via =M-x customize-group=.
-- Menubar contributions for common commands
+- Customization group called *grails* that is accessible via =M-x customize-group=.
+- Menubar contributions for common commands.
 
-* Dependencies and installation
-The only dependency is grails-mode and you can grab the mode [[https://github.com/timvisher/emacs-groovy-mode-mirror][here]] with associated groovy modes.
+* Dependencies installation
 
-If you're using the package system, install *grails-mode* from the list of packages with =M-x list-packages=.
+It is recommended to use the [[http://www.emacswiki.org/emacs/ELPA][package system]] to install dependencies.
+You'll likely want to start with =groovy-mode=, =inf-groovy= and =grails-mode=.
+
+** Using grails-projectile-mode (Recommended)
+Projectile is more flexible than =project-mode= and therefore =grails-mode=.
+=M-x package-install projectile [RET]=
+
+** Using grails-mode and project-mode
+For a manual download, you can grab the mode [[https://github.com/timvisher/emacs-groovy-mode-mirror][here]] with associated groovy modes.
+
+If you're using the package system, install *grails-mode* 
+from the list of packages with =M-x package-install grails-mode [RET]=.
 
 * Configuration
 
-Put the =emacs-grails-project-mode.el= file in the folder of your choice and add it to the *load-path*.
+Put the Grails =el= file of your choice(projectile or grails-mode) in a given folder and add it to the *load-path*.
 
-: ;; Assuming that emacs-grails-project-mode.el is in ~/.emacs.d/vendor
+: ;; Assuming that required el file is in ~/.emacs.d/vendor
 : (setq load-path (cons (expand-file-name "~/.emacs.d/vendor") load-path))
+: ;; For grails-mode using project-mode
 : (require 'emacs-grails-project-mode)
-
-** Load the minor-mode automatically
-You can load automatically both project-mode and emacs-grails-project-mode with the following lines:
-
-: (emacs-grails-minor-mode t)
-
-You can toggle =emacs-grails-minor-mode= using =M-x emacs-grails-minor-mode=.
+: ;; Alternate configuration for projectile
+: (require 'grails-projectile-mode)
+: (grails-projectile-mode t)
