@@ -192,6 +192,12 @@
 ;; --------------------------------
 ;; Other targets
 ;; --------------------------------
+(defun grails/clean ()
+  "Compile"
+
+  (interactive)
+  (grails/command "clean"))
+
 (defun grails/compile ()
   "Compile"
 
