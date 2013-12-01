@@ -24,32 +24,42 @@
 ;; ================================
 (require 'projectile)
 
+(defcustom grails-projectile-keymap-prefix (kbd "C-c ;")
+  "Grails Projectile keymap prefix."
+  :group 'projectile
+  :type 'string)
+
+(defcustom grails-projectile-mode-line " Grails"
+  "Grails projectile modeline."
+  :type 'string
+  :group 'grails)
+
 (defvar grails-executable-suffix
   (if (eq system-type 'windows-nt)
       ".bat" ""))
 
 (defcustom grails-compilation-buffer-name "*Grails*"
-  "Buffer name for Grails commands"
+  "Buffer name for Grails commands."
   :type 'string
   :group 'grails)
 
 (defcustom use-grails-wrapper-when-possible t
-  "Use the Grails wrapper whenever available"
+  "Use the Grails wrapper whenever available."
   :type 'boolean
   :group 'grails)
 
-(defcustom grails-output-opts "--plain-output"
-  "No weird characters when running Grails commands"
+(defcustom grails-output-opts ""
+  "Output options such as --plain-output."
   :type 'string
   :group 'grails)
 
 (defcustom grails-cmd-opts "--non-interactive --stacktrace"
-  "Grails command line options"
+  "Grails command line options."
   :type 'string
   :group 'grails)
 
 (defcustom grails-wrapper-filename "grailsw"
-  "Grails Wrapper file name"
+  "Grails Wrapper file name."
   :type 'string
   :group 'grails)
 
@@ -267,17 +277,20 @@
 ;;; Minor mode
 (defvar grails-projectile-mode-map
   (let ((map (make-sparse-keymap)))
-    (define-key map   (kbd "C-c ;rd") 'grails/refresh-dependencies)
-    (define-key map   (kbd "C-c ;cp") 'grails/compile)
-    (define-key map   (kbd "C-c ;cl") 'grails/clean)
-    (define-key map   (kbd "C-c ;e")  'grails/icommand)
-    (define-key map   (kbd "C-c ;cd") 'grails/create-domain)
-    (define-key map   (kbd "C-c ;na") 'grails/wizard-new-app)
-    (define-key map   (kbd "C-c ;np") 'grails/wizard-new-plugin)
-    (define-key map   (kbd "C-c ;cc") 'grails/create-controller)
-    (define-key map   (kbd "C-c ;cs") 'grails/create-service)
-    (define-key map   (kbd "C-c ;pl") 'grails/plugins-list-installed)
-    (define-key map   (kbd "C-c ;pp") 'grails/plugins-package-plugin)
+    (let ((prefix-map (make-sparse-keymap)))
+      (define-key prefix-map   (kbd "r d") 'grails/refresh-dependencies)
+      (define-key prefix-map   (kbd "c p") 'grails/compile)
+      (define-key prefix-map   (kbd "c l") 'grails/clean)
+      (define-key prefix-map   (kbd "e")   'grails/icommand)
+      (define-key prefix-map   (kbd "c d") 'grails/create-domain)
+      (define-key prefix-map   (kbd "n a") 'grails/wizard-new-app)
+      (define-key prefix-map   (kbd "n p") 'grails/wizard-new-plugin)
+      (define-key prefix-map   (kbd "c c") 'grails/create-controller)
+      (define-key prefix-map   (kbd "c s") 'grails/create-service)
+      (define-key prefix-map   (kbd "p l") 'grails/plugins-list-installed)
+      (define-key prefix-map   (kbd "p p") 'grails/plugins-package-plugin)
+
+      (define-key map grails-projectile-keymap-prefix prefix-map))
     map)
   "Keymap for Grails Projectile mode.")
 
@@ -297,11 +310,34 @@
 
 ;;;###autoload
 (define-minor-mode grails-projectile-mode
-  "Emacs Grails Project Mode Extensions"
-  :lighter " Grails"
+  "Grails Projectile Mode.
+
+  \\{grails-projectile-mode-map}"
+  :lighter grails-projectile-mode-line
   :keymap  'grails-projectile-mode-map
   :group   'grails
-  :global  t
+  :require 'grails-projectile-mode
   (easy-menu-add grails-projectile-mode-menu))
+
+;;;###autoload
+(define-globalized-minor-mode grails-projectile-global-mode
+  grails-projectile-mode
+  grails-projectile-on)
+
+(defun grails-projectile-on ()
+  "Enable Grails Projectile minor mode."
+  (grails-projectile-mode 1))
+
+(defun grails-projectile-off ()
+  "Disable Grails Projectile minor mode."
+  (grails-projectile-mode -1))
+
+(defun grails-projectile-global-on ()
+  "Enable Grails Projectile global minor mode."
+  (grails-projectile-global-mode +1))
+
+(defun grails-projectile-global-off ()
+  "Disable Grails Projectile global minor mode."
+  (grails-projectile-global-mode -1))
 
 (provide 'grails-projectile-mode)

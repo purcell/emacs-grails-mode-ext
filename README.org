@@ -40,6 +40,14 @@ Put the Grails =el= file of your choice(projectile or grails-mode) in a given fo
 : (setq load-path (cons (expand-file-name "~/.emacs.d/vendor") load-path))
 : ;; For grails-mode using project-mode
 : (require 'emacs-grails-project-mode)
+: ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 : ;; Alternate configuration for projectile
+: ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+: (setq grails-projectile-keymap-prefix (kbd "C-c ;"))
 : (require 'grails-projectile-mode)
-: (grails-projectile-mode t)
+: (grails-projectile-global-mode t)
+
+
+For a list of keybindings, run =M-x describe-mode= and search for grails-projectile.
+
+With Grails Projectile Mode the keymap prefix is configurable...
