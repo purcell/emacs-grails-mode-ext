@@ -14,7 +14,9 @@ Projectile support is newer and recommended.
 - Custom JVM options to pass to the Grails command are supported at a global level.
 - Custom command line options to pass to Grails by default.
 - You can use the Grails wrapper by default whenever available for a project.
-- Customization group called *grails* that is accessible via =M-x customize-group=.
+- For grails-projectile, customization group called *grails-projectile* that is accessible via =M-x customize-group=.
+- For grails-mode, the customization group is *grails*.
+- Lookup functions are available to quickly visit controllers, services, etc.
 - Menubar contributions for common commands.
 
 * Dependencies installation
