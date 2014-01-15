@@ -57,7 +57,7 @@
   "Grails Projectile keymap prefix."
   :group 'grails-projectile
   :type 'string
-  :link '(url-link :tag "Github" ""))
+  :link '(url-link :tag "Github" "https://github.com/rimerosolutions/emacs-grails-mode-ext"))
 
 (defcustom grails-projectile-mode-line " Grails"
   "Grails projectile modeline."
