@@ -1,13 +1,12 @@
-;;; emacs-grails-mode-ext.el --- Extensions for grails-mode.
-;;
+;;; emacs-grails-mode-ext.el --- Extensions for emacs-grails-mode.
 ;;
 ;; Author: Yves Zoundi <rimerosolutions@gmail.com>
 ;; Maintainer: Yves Zoundi
-;; Version: 20140109.190629
+;; Version: 20140128.062131
 ;; X-Original-Version: 1.0.0
 ;; Package-Requires: ((grails-mode "0.1") (emacs "24"))
 ;; Contributors: The internet and people who surf it.
-;; Last updated: 2014-01-09
+;; Last updated: 2014-01-28
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -18,8 +17,7 @@
 ;;    - Menubar contributions in Grails mode.
 ;;
 ;; To list keybindings press C-h b and search for grails-mode.
-;;
-;; ================================
+
 (require 'grails-mode)
 (grails-mode +1)
 
@@ -33,7 +31,7 @@
   :type 'string
   :group 'grails)
 
-(defcustom grails-jvm-opts "-DXmx1g"
+(defcustom grails-jvm-opts "-DXmx512m"
   "Grails command line options"
   :type 'string
   :group 'grails)
@@ -46,24 +44,39 @@
   :type 'boolean
   :group 'grails)
 
-(defcustom grails-executable-path-no-ext "grails"
-  "Path to the Grails executable without filename extension."
-  :type 'string
-  :group 'grails)
-
 (defcustom grails-executable-suffix
   (if (eq system-type 'windows-nt)
       ".bat" "")
   "Suffix for the Grails executable file.")
 
+(defcustom grails-executable-path (executable-find "grails")
+  "Path to the Grails executable."
+  :type 'string
+  :group 'grails)
+
+(defcustom grails-url-wikidocs "http://grails.org/Documentation"
+  "URL to the Grails wiki documentation."
+  :type 'string
+  :group 'grails)
+
+(defcustom grails-url-guide "http://grails.org/doc/latest/guide/single.html"
+  "URL to the Grails latest guide."
+  :type 'string
+  :group 'grails)
+
+(defcustom grails-url-apidocs "http://grails.org/doc/latest/api/"
+  "URL to the Grails latest apidocs."
+  :type 'string
+  :group 'grails)
+
 ;; --------------------------------
 ;; Main functions
 ;; --------------------------------
 (defun grails--command (str)
-  "Run a Grails command (Non interactive)."
+  "Run a Grails command."
   (project-ensure-current)
   (let ((default-directory (project-default-directory (project-current)))
-        (grails-executable (concat grails-executable-path-no-ext grails-executable-suffix))
+        (grails-executable grails-executable-path)
         (grails-wrapper-path (concat default-directory grails-wrapper-filename grails-executable-suffix)))
 
     (when (and grails-use-wrapper-when-possible
@@ -75,7 +88,11 @@
                                        grails-output-opts
                                        " "
                                        str)))
-      (async-shell-command grails-command-line grails-cmp-buffer-name))))
+      (compilation-start grails-command-line 'compilation-mode 'grails--get-compilation-buffer-name))))
+
+(defun grails--get-compilation-buffer-name (mode)
+  "Get the grails compilation buffer name."
+  grails-cmp-buffer-name)
 
 (defun grails--read-param-and-run (input-hint grails-command)
   "Read an input parameter and invoke a given Grails command."
@@ -139,24 +156,24 @@
 (defun grails-browse-wiki-docs ()
   "Browse the Wiki Documentation."
   (interactive)
-  (browse-url "http://grails.org/Documentation"))
+  (browse-url grails-url-wikidocs))
 
 (defun grails-browse-api-docs ()
   "Browse the API Documentation."
   (interactive)
-  (browse-url "http://grails.org/doc/latest/api/"))
+  (browse-url grails-url-apidocs))
 
 (defun grails-browse-latest-guide ()
   "Browse the official Grails Guide."
   (interactive)
-  (browse-url "http://grails.org/doc/latest/guide/single.html"))
+  (browse-url grails-url-guide))
 
 (defun grails-contribute-keys()
   "Add keybindings"
-  (global-set-key   (kbd "C-c ;e")  'grails-icommand)
-  (global-set-key   (kbd "C-c ;cd") 'grails-create-domain)
-  (global-set-key   (kbd "C-c ;cc") 'grails-create-controller)
-  (global-set-key   (kbd "C-c ;cs") 'grails-create-service) )
+  (global-set-key (kbd "C-c ;e")  'grails-icommand)
+  (global-set-key (kbd "C-c ;cd") 'grails-create-domain)
+  (global-set-key (kbd "C-c ;cc") 'grails-create-controller)
+  (global-set-key (kbd "C-c ;cs") 'grails-create-service) )
 
 (eval-after-load "emacs-grails-mode-ext"
   '(progn (grails-contribute-keys) ))
