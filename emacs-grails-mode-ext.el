@@ -173,7 +173,7 @@
   (global-set-key (kbd "C-c ;e")  'grails-icommand)
   (global-set-key (kbd "C-c ;cd") 'grails-create-domain)
   (global-set-key (kbd "C-c ;cc") 'grails-create-controller)
-  (global-set-key (kbd "C-c ;cs") 'grails-create-service) )
+  (global-set-key (kbd "C-c ;cs") 'grails-create-service))
 
 (eval-after-load "emacs-grails-mode-ext"
   '(progn (grails-contribute-keys) ))
