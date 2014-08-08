@@ -161,7 +161,8 @@
 (defun grails/integrate-with-eclipse ()
   "Integrate with Eclipse."
   (interactive)
-  (grails/--command "--integrate-with eclipse"))
+  (let ((grails-jvm-opts ""))
+    (grails/--command "integrate-with --eclipse")))
 
 (defun grails/wizard-new-plugin ()
   "Create a new plugin project."
