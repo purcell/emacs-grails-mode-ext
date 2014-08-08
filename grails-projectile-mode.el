@@ -158,6 +158,11 @@
   (interactive)
   (grails/--wizard-new-app-or-plugin "create-app"))
 
+(defun grails/integrate-with-eclipse ()
+  "Integrate with Eclipse."
+  (interactive)
+  (grails/--command "--integrate-with eclipse"))
+
 (defun grails/wizard-new-plugin ()
   "Create a new plugin project."
   (interactive)
@@ -523,6 +528,8 @@
       (define-key prefix-map   (kbd "c l") 'grails/clean)
       (define-key prefix-map   (kbd "e")   'grails/icommand)
 
+      (define-key prefix-map   (kbd "i e") 'grails/integrate-with-eclipse)
+      
       (define-key prefix-map   (kbd "c d") 'grails/create-domain)
       (define-key prefix-map   (kbd "c t") 'grails/create-taglib)
       (define-key prefix-map   (kbd "c s") 'grails/create-service)
