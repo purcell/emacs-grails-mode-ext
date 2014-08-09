@@ -412,6 +412,21 @@
     (setq grails-command-argument (read-from-minibuffer input-hint))
     (grails/--command (concat grails-command " " grails-command-argument))))
 
+(defun grails/generate-all ()
+  "Create all artifacts for a Grails Domain Class."
+  (interactive)
+  (grails/--read-param-and-run "Generate all for Domain class:" "generate-all"))
+
+(defun grails/generate-views ()
+  "Create views for a Grails Domain Class."
+  (interactive)
+  (grails/--read-param-and-run "Generate views for Domain class:" "generate-views"))
+
+(defun grails/generate-controller ()
+  "Create a controller for a Grails Domain Class."
+  (interactive)
+  (grails/--read-param-and-run "Generate controller for Domain class:" "generate-controller"))
+
 ;; --------------------------------
 ;; General functions
 ;; --------------------------------
@@ -465,7 +480,6 @@
   "Run the application."
   (interactive)
   (grails/--command "run-app"))
-
 
 (defun grails/clean ()
   "Clean."
@@ -530,6 +544,10 @@
       (define-key prefix-map   (kbd "e")   'grails/icommand)
 
       (define-key prefix-map   (kbd "i e") 'grails/integrate-with-eclipse)
+
+      (define-key prefix-map   (kbd "g a") 'grails/generate-all)
+      (define-key prefix-map   (kbd "g c") 'grails/generate-controller)
+      (define-key prefix-map   (kbd "g v") 'grails/generate-views)
       
       (define-key prefix-map   (kbd "c d") 'grails/create-domain)
       (define-key prefix-map   (kbd "c t") 'grails/create-taglib)
