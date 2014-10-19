@@ -535,6 +535,10 @@
       (define-key prefix-map   (kbd "g c") 'grails-generate-controller)
       (define-key prefix-map   (kbd "g v") 'grails-generate-views)
 
+      (define-key prefix-map   (kbd "b a") 'grails-browse-api-docs)
+      (define-key prefix-map   (kbd "b g") 'grails-browse-latest-guide)
+      (define-key prefix-map   (kbd "b w") 'grails-browse-wiki-docs)
+
       (define-key prefix-map   (kbd "c d") 'grails-create-domain)
       (define-key prefix-map   (kbd "c t") 'grails-create-taglib)
       (define-key prefix-map   (kbd "c s") 'grails-create-service)
@@ -592,6 +596,12 @@
     ["Locate service"            grails-locate-service           t]
     ["Locate test"               grails-locate-test              t]
 
+    ["--"                        'ignore                          ]
+    
+    ["Browse API"                grails-browse-api-docs          t]
+    ["Browse guide"              grails-browse-latest-guide      t]
+    ["Browse wiki"               grails-browse-wiki-docs         t]
+    
     ["--"                        'ignore                          ]
 
     ["Installed Plugins"         grails-plugins-list-installed   t]
