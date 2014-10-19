@@ -184,7 +184,7 @@
     (let* ((grails-project-folder (read-directory-name "Application Directory: " default-directory))
            (app-name (read-from-minibuffer "Application Name: "))
            (default-directory (file-name-as-directory grails-project-folder))
-           (grails-command grails-executable))
+           (grails-command grails-executable)
            (grails-arguments (concat cmd " --inplace " app-name)))
 
       ;; Create the project folder.
@@ -375,7 +375,7 @@
   "Generate the grails command line string."
   (let ((default-directory (expand-file-name (projectile-project-root)))
         (grails-args (concat grails-jvm-opts " " grails-cmd-opts))
-        (grails-cmd-line grails-executable)))
+        (grails-cmd-line grails-executable))
 
     (when (and use-grails-wrapper-when-possible
                (grails--wrapper-exists-p default-directory))
