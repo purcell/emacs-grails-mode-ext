@@ -2,12 +2,11 @@
 
 ;; Copyright (C) 2013,2014 Rimero Solutions
 
-;; Version: 20141015.224118
-;; X-Original-Version: 1.0.1
-;; Keywords: elisp, grails, projectile
+;; Version: 1.0.0
+;; Keywords: grails, projectile
 ;; Author: Yves Zoundi <rimerosolutions@gmail.com>
 ;; Maintainer: Yves Zoundi
-;; Package-Requires: ((projectile "0.8") (emacs "24"))
+;; Package-Requires: ((projectile "0.10.0") (emacs "24") (groovy-mode "0"))
 ;; Contributors: The internet and people who surf it.
 ;; Last updated: 2014-10-15
 
@@ -607,32 +606,6 @@
     ["Installed Plugins"         grails-plugins-list-installed   t]
     ["Package Plugin"            grails-plugins-package-plugin   t]))
 
-;; Projectile advices for compilation and test commands.
-(defvar projectile-grails-spec '("application.properties" "grails-app"))
-
-;;;###autoload
-(progn
-  (defadvice projectile-default-test-command
-      (around grails-projectile-default-test-command (project-type) )
-    "After execution of projectile-default-test-command."
-    (if (eq project-type 'grails)
-        (setq ad-return-value (grails--get-cmd "test-app"))
-      ad-do-it))
-
-  (defadvice projectile-default-compilation-command
-      (around grails-projectile-default-compilation-command (project-type) )
-    "After execution of projectile-default-compilation-command."
-    (if (eq project-type 'grails)
-        (setq ad-return-value (grails--get-cmd "compile"))
-      ad-do-it))
-
-  (defadvice projectile-project-type
-      (around grails-projectile-project-type () )
-    "After execution of projectile-project-type."
-    (if (projectile-verify-files projectile-grails-spec)
-        (setq ad-return-value 'grails)
-      ad-do-it)))
-
 ;;;###autoload
 (define-minor-mode grails-projectile-mode
   "Grails Projectile Mode.
@@ -644,16 +617,6 @@
   :require 'grails-projectile-mode
 
   (progn
-    (cond
-     (grails-projectile-mode
-      (ad-activate 'projectile-project-type 'grails-projectile-project-type)
-      (ad-activate 'projectile-default-test-command 'grails-projectile-default-test-command)
-      (ad-activate 'projectile-default-compilation-command 'grails-projectile-default-compilation-command))
-     (t
-      (ad-deactivate 'projectile-project-type)
-      (ad-deactivate 'projectile-default-test-command)
-      (ad-deactivate 'projectile-default-compilation-command)))
-
     (easy-menu-add grails-projectile-mode-menu)))
 
 ;;;###autoload

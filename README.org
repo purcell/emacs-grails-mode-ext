@@ -22,11 +22,51 @@ Projectile support is newer and recommended.
 * Dependencies installation
 
 It is recommended to use the [[http://www.emacswiki.org/emacs/ELPA][package system]] to install dependencies.
-You'll likely want to start with =groovy-mode=, =inf-groovy= and =grails-mode=.
+You'll likely want to start with =groovy-mode=.
 
 ** Using grails-projectile-mode (Recommended)
 Projectile is more flexible than =project-mode= and therefore =grails-mode=.
 =M-x package-install projectile [RET]=
+
+*** Minor mode prefix
+The default key prefix is =C-c ;=. This can be changed by
+customizing the =grails-projectile-keymap-prefix= variable.
+
+*** Interactive commands
+
+|------------+-------------------------------------|
+| KeyBinding | Description                         |
+|------------+-------------------------------------|
+| C-c ; r d  | Refresh dependencies                |
+| C-c ; c p  | Compile project                     |
+| C-c ; c l  | Clean                               |
+| C-c ; e    | Arbitrary Grails command            |
+| C-c ; i w  | Integrate with other tools          |
+| C-c ; g a  | Generate all artifacts for a domain |
+| C-c ; g c  | Generate controller                 |
+| C-c ; g v  | Generate views                      |
+| C-c ; b a  | Browse api docs                     |
+| C-c ; b g  | Browse latest guide                 |
+| C-c ; b w  | Browse wiki docs                    |
+| C-c ; c d  | Create domain                       |
+| C-c ; c t  | Create taglib                       |
+| C-c ; c s  | Create service                      |
+| C-c ; c c  | Create controller                   |
+| C-c ; f d  | Find domain for file                |
+| C-c ; f t  | Find test for file                  |
+| C-c ; f s  | Find service for file               |
+| C-c ; f c  | Find controller for file            |
+| C-c ; l d  | Locate domain                       |
+| C-c ; l t  | Locate test                         |
+| C-c ; l s  | Locate service                      |
+| C-c ; l v  | Locate view                         |
+| C-c ; l c  | Locate controller                   |
+| C-c ; r a  | Run application                     |
+| C-c ; n a  | Create new application              |
+| C-c ; n p  | Create new plugin                   |
+| C-c ; p l  | List installed plugins              |
+| C-c ; p p  | Package a plugin                    |
+
 
 ** Using grails-mode and project-mode
 For a manual download, you can grab the mode [[https://github.com/timvisher/emacs-groovy-mode-mirror][here]] with associated groovy modes.
