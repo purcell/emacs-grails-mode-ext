@@ -6,7 +6,7 @@
 ;; Keywords: grails, projectile
 ;; Author: Yves Zoundi <rimerosolutions@gmail.com>
 ;; Maintainer: Yves Zoundi
-;; Package-Requires: ((projectile "0.10.0") (emacs "24") (groovy-mode "0"))
+;; Package-Requires: ((projectile "0.10.0") (emacs "24") (groovy-mode "0") (cl-lib "0.5"))
 ;; Contributors: The internet and people who surf it.
 ;; Last updated: 2014-10-15
 
@@ -56,7 +56,7 @@
 
 (require 'projectile)
 
-(eval-when-compile (require 'cl-lib))
+(require 'cl-lib)
 
 ;;;_. Customizations
 (defcustom grails-projectile-keymap-prefix (kbd "C-c ;")
@@ -361,7 +361,7 @@
 ;; Folder helper functions
 ;; --------------------------------
 (defun grails--path-from-project-root(&rest path-elements)
-  (reduce '(lambda (x &optional y)
+  (cl-reduce '(lambda (x &optional y)
                 (concat (file-name-as-directory x) y))
              path-elements :initial-value (projectile-project-root)))
 
@@ -509,7 +509,7 @@
   "Search Grails plugins."
   (interactive "sPlugin tag: \n")
   (if (boundp 'grails-plugins-base-url)
-      (grails--search-plugin ((concat grails-plugins-base-url "tag/") query-string))
+      (grails--search-plugin (concat grails-plugins-base-url "tag/") query-string)
     (message "No Grails plugins base URL set. Customize the 'grails-projectile' group")))
 
 (defun grails-browse-latest-guide ()
