@@ -509,7 +509,7 @@
   "Search Grails plugins."
   (interactive "sPlugin tag: \n")
   (if (boundp 'grails-plugins-base-url)
-      (grails--search-plugin ((concat grails-plugins-base-url "tag/") query-string))
+      (grails--search-plugin (concat grails-plugins-base-url "tag/") query-string)
     (message "No Grails plugins base URL set. Customize the 'grails-projectile' group")))
 
 (defun grails-browse-latest-guide ()
