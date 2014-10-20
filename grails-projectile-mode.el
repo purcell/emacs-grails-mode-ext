@@ -6,7 +6,7 @@
 ;; Keywords: grails, projectile
 ;; Author: Yves Zoundi <rimerosolutions@gmail.com>
 ;; Maintainer: Yves Zoundi
-;; Package-Requires: ((projectile "0.10.0") (emacs "24") (groovy-mode "0") (cl-lib "0.5"))
+;; Package-Requires: ((projectile "0.10.0") (emacs "24") (cl-lib "0.5"))
 ;; Contributors: The internet and people who surf it.
 ;; Last updated: 2014-10-15
 
